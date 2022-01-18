@@ -38,6 +38,9 @@ And run 'make workshop-check' *before* committing to make sure that changes are 
 8< ============================= until here ==================
 {% endcomment %}
 
+<h2><strong>Registration for this workshop opens on Friday, January 21st at 8:00am PST</strong></h2>
+<a href="https://www.timeanddate.com/worldclock/fixedtime.html?msg=Feb+7+Seeds+R&iso=20220121T08&p1=1050">Check what time registration opens in your timezone</a>
+
 
 {% comment %}
 Check DC curriculum

@@ -2,33 +2,20 @@
 
 # The Carpentries Workshop Template
 
-This repository is The Carpentries' ([Software Carpentry][swc-site], [Data Carpentry][dc-site], and
+This repository came from The Carpentries' ([Software Carpentry][swc-site], [Data Carpentry][dc-site], and
 [Library Carpentry][lc-site]'s) template for creating websites for workshops.
 
-1. **Please _do not fork this repository directly on GitHub._** Instead, please use GitHub's
-   "template" function following [the instructions below](#creating-a-repository) to copy this
-   `workshop-template` repository and customize it for your workshop.
+It's for an Intro to R data carpentry for UCSB SEEDS Fellows.
+The lesson episodes came from (Intro to R for Geospatial Data)[https://datacarpentry.org/r-intro-geospatial/]
 
-2. Please *do your work in your repository's `gh-pages` branch*, since that is what is
-   [automatically published as a website by GitHub][github-project-pages].
-
-3. Once you are done, please also [let us know][email] the workshop URL. If this is a self-organised
+Don't forget that AMY form!
+- Once you are done, please also [let us know][email] the workshop URL. If this is a self-organised
    workshop, you should also [fill in the self-organized workshop
    form][self-organized-workshop-form] (if you have not already done so), so we can keep track of
    all workshops. We build the list of workshops on our websites from the data included in your
    `index.md` page. We can only do that if you [customize][customization] that page correctly *and*
    let us know the workshop URL.
 
-If you run into problems,
-or have ideas about how to make this process simpler,
-please [get in touch](#getting-and-giving-help).
-The pages on [customizing your website][customization],
-the [FAQ][faq],
-and the [design notes][design] have more detail on what we do and why.
-And please note:
-if you are teaching Git,
-please [create a separate repository](#setting-up-a-separate-repository-for-learners)
-for your learners to practice in.
 
 ## Video Tutorial
 

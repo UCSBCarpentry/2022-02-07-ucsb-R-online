@@ -189,7 +189,7 @@ resume work after a break.
   script. Click the save icon on your toolbar and save your script as
   "`script.R`".
 
-The simplest way to open an RStudio project once it has been created is to 
+The simplest way to open an RStudio project once it has been created is to
 navigate through your files to where the project was saved and double
 click on the `.Rproj` (blue cube) file. This will open RStudio and start your R
 session in the **same** directory as the `.Rproj` file. All your data, plots and
@@ -226,7 +226,7 @@ create directories (folders) for **scripts**, **data**, and **documents**. Here
 are some examples of suggested directories:
 
  - **`data/`** Use this folder to store your raw data and intermediate datasets.
-   For the sake of transparency and 
+   For the sake of transparency and
    [provenance](https://en.wikipedia.org/wiki/Provenance), you
    should *always* keep a copy of your raw data accessible and do as much of
    your data cleanup and preprocessing programmatically (i.e., with scripts,
@@ -256,11 +256,11 @@ and only to files within this structure.
 
 Using RStudio projects makes this easy and ensures that your working directory
 is set up properly. If you need to check it, you can use `getwd()`. If for some
-reason your working directory is not the same as the location of your RStudio 
+reason your working directory is not the same as the location of your RStudio
 project, it is likely that you opened an R script or RMarkdown file **not** your
-`.Rproj` file. You should close out of RStudio and open the `.Rproj` file by 
-double clicking on the blue cube! If you ever need to modify your working 
-directory in a script, `setwd('my/path')` changes the working directory. This 
+`.Rproj` file. You should close out of RStudio and open the `.Rproj` file by
+double clicking on the blue cube! If you ever need to modify your working
+directory in a script, `setwd('my/path')` changes the working directory. This
 should be used with caution since it makes analyses hard to share across devices
 and with other users.
 

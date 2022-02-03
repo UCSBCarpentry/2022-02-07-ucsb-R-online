@@ -24,12 +24,13 @@ keypoints:
      html_document:
        keep_md: true
 ---
-
+<!--
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
 knitr_fig_path("04-")
 source("../bin/download_data.R")
 ```
+-->
 
 We start by loading the required package. **`ggplot2`** is also included in the
 **`tidyverse`** package.

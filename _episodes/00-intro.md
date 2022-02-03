@@ -261,11 +261,12 @@ lowercase to be consistent. We can create them using the RStudio interface by
 clicking on the "New Folder" button in the file pane (bottom right), or directly
 from R by typing at console:
 
-```{r create-dirs, eval = FALSE}
+~~~
 dir.create("data")
 dir.create("data_output")
 dir.create("fig_output")
-```
+~~~
+{: .language-r}
 
 Go to the Figshare page for this curriculum and download the dataset called
 "`SAFI_clean.csv`". The direct download link is:
@@ -399,9 +400,10 @@ well as Github or the local file system, but we won’t be looking at these opti
 If you were watching the console window when you started the
 install of ‘tidyverse’, you may have noticed that the line
 
-```{r, eval = FALSE}
+~~~
 install.packages("tidyverse")
-```
+~~~
+{: .language-r}
 
 was written to the console before the start of the installation messages.
 

@@ -106,14 +106,12 @@ inside your project, like analysis projects with data and reports in different
 subdirectories.  This is an important contrast to using `setwd()`, which
 depends on the way you order your files on your computer.
 
-<figure>
-```{r here-figure, echo = FALSE, fig.show = "hold", fig.alt = "Monsters at a fork in the road, with signs saying here, and not here. One direction, not here, leads to a scary dark forest with spiders and absolute filepaths, while the other leads to a sunny, green meadow, and a city below a rainbow and a world free of absolute filepaths. Art by Allison Horst", out.width="100%"}
-knitr::include_graphics("../fig/here_horst.png")
-```
-<figcaption>
+
+Monsters at a fork in the road, with signs saying here, and not here. One direction, not here, leads to a scary dark forest with spiders and absolute filepaths, while the other leads to a sunny, green meadow, and a city below a rainbow and a world free of absolute filepaths. Art by Allison Horst
+
+![Monsters at a fork in the road, with signs saying here, and not here. One direction, not here, leads to a scary dark forest with spiders and absolute filepaths, while the other leads to a sunny, green meadow, and a city below a rainbow and a world free of absolute filepaths. Art by Allison Horst](../fig/here_horst.png)
+
 Image credit: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst</a>
-</figcaption>
-</figure>
 
 
 Before we can use the `read_csv()` and `here()` functions, we need to load the
@@ -123,14 +121,15 @@ Also, if you recall, the missing data is encoded as "NULL" in the dataset.
 We'll tell it to the function, so R will automatically convert all the "NULL"
 entries in the dataset into `NA`.
 
-```{r, eval = TRUE,  message = FALSE, purl = FALSE}
+~~~
 library(tidyverse)
 library(here)
 
 interviews <- read_csv(
   here("data", "SAFI_clean.csv"),
   na = "NULL")
-```
+~~~
+{: .language-r}
 
 In the above code, we notice the `here()` function takes folder and file names
 as inputs (e.g., `"data"`, `"SAFI_clean.csv"`), each enclosed in quotations
@@ -158,12 +157,13 @@ text about the data frame that is created.) If we want to check that our data
 has been loaded, we can see the contents of the data frame by typing its name:
 `interviews` in the console.
 
-```{r, results = 'hold', purl = FALSE}
+~~~
 interviews
 ## Try also
 ## view(interviews)
 ## head(interviews)
-```
+~~~
+{: .language-r}
 
 > ## Note
 >
@@ -183,9 +183,10 @@ A tibble is an extension of `R` data frames used by the **`tidyverse`**. When
 the data is read using `read_csv()`, it is stored in an object of class
 `tbl_df`, `tbl`,  and `data.frame`. You can see the class of an object with
 
-```{r results = 'hold', purl = FALSE}
+~~~
 class(interviews)
-```
+~~~
+{: .language-r}
 
 As a `tibble`, the type of data included in each column is listed in an
 abbreviated fashion below the column names. For instance, here `key_ID` is a
@@ -253,7 +254,7 @@ want from it. Row numbers come first, followed by column numbers.
 {: .callout}
 
 
-```{r, purl = FALSE}
+~~~
 ## first element in the first column of the tibble
 interviews[1, 1]
 
@@ -274,23 +275,25 @@ interviews[3, ]
 
 ## equivalent to head_interviews <- head(interviews)
 head_interviews <- interviews[1:6, ]
-```
+~~~
+{: .language-r}
 
 `:` is a special function that creates numeric vectors of integers in increasing
 or decreasing order, test `1:10` and `10:1` for instance.
 
 You can also exclude certain indices of a data frame using the "`-`" sign:
 
-```{r, purl = FALSE}
+~~~
 interviews[, -1]          # The whole tibble, except the first column
 
 interviews[-c(7:131), ]   # Equivalent to head(interviews)
-```
+~~~
+{: .language-r}
 
 `tibble`s can be subset by calling indices (as shown previously), but also by
 calling their column names directly:
 
-```{r, eval = FALSE, purl = FALSE}
+~~~
 interviews["village"]       # Result is a tibble
 
 interviews[, "village"]     # Result is a tibble
@@ -298,7 +301,8 @@ interviews[, "village"]     # Result is a tibble
 interviews[["village"]]     # Result is a vector
 
 interviews$village          # Result is a vector
-```
+~~~
+{: .language-r}
 
 In RStudio, you can use the autocompletion feature to get the full and correct
 names of the columns.
@@ -365,20 +369,22 @@ Once created, factors can only contain a pre-defined set of values, known as
 *levels*. By default, R always sorts levels in alphabetical order. For
 instance, if you have a factor with 2 levels:
 
-```{r, purl = TRUE}
+~~~
 respondent_floor_type <- factor(c("earth", "cement", "cement", "earth"))
-```
+~~~
+{: .language-r}
 
 R will assign `1` to the level `"cement"` and `2` to the level `"earth"`
 (because `c` comes before `e`, even though the first element in this vector is
 `"earth"`). You can see this by using the function `levels()` and you can find
 the number of levels using `nlevels()`:
 
-```{r, purl = FALSE}
+~~~
 levels(respondent_floor_type)
 
 nlevels(respondent_floor_type)
-```
+~~~
+{: .language-r}
 
 Sometimes, the order of the factors does not matter. Other times you might want
 to specify the order because it is meaningful (e.g., "low", "medium", "high").
@@ -386,14 +392,15 @@ It may improve your visualization, or it may be required by a particular type of
 analysis. Here, one way to reorder our levels in the `respondent_floor_type`
 vector would be:
 
-```{r, results = TRUE, purl = FALSE}
+~~~
 respondent_floor_type # current order
 
 respondent_floor_type <- factor(respondent_floor_type,
                                 levels = c("earth", "cement"))
 
 respondent_floor_type # after re-ordering
-```
+~~~
+{: .language-r}
 
 In R's memory, these factors are represented by integers (1, 2), but are more
 informative than integers because factors are self describing: `"cement"`,
@@ -403,7 +410,7 @@ have this information built in. It is particularly helpful when there are many
 levels. It also makes renaming levels easier. Let's say we made a mistake and
 need to recode "cement" to "brick".
 
-```{r, results = TRUE, purl = FALSE}
+~~~
 levels(respondent_floor_type)
 
 levels(respondent_floor_type)[2] <- "brick"
@@ -411,7 +418,8 @@ levels(respondent_floor_type)[2] <- "brick"
 levels(respondent_floor_type)
 
 respondent_floor_type
-```
+~~~
+{: .language-r}
 
 So far, your factor is unordered, like a nominal variable. R does not know the
 difference between a nominal and an ordinal variable. You make your factor an
@@ -420,12 +428,13 @@ Note how the reported levels changed from the unordered factor above to the
 ordered version below. Ordered levels use the less than sign `<` to denote
 level ranking.
 
-```{r, results = TRUE, purl = FALSE}
+~~~
 respondent_floor_type_ordered <- factor(respondent_floor_type,
                                         ordered = TRUE)
 
 respondent_floor_type_ordered # after setting as ordered factor
-```
+~~~
+{: .language-r}
 
 
 ### Converting factors
@@ -433,9 +442,10 @@ respondent_floor_type_ordered # after setting as ordered factor
 If you need to convert a factor to a character vector, you use
 `as.character(x)`.
 
-```{r, purl = FALSE}
+~~~
 as.character(respondent_floor_type)
-```
+~~~
+{: .language-r}
 
 Converting factors where the levels appear as numbers (such as concentration
 levels, or years) to a numeric vector is a little trickier. The `as.numeric()`
@@ -444,7 +454,7 @@ result in an entirely new (and unwanted in this case) set of numbers.
 One method to avoid this is to convert factors to characters, and then to
 numbers. Another method is to use the `levels()` function. Compare:
 
-```{r, purl = TRUE}
+~~~
 year_fct <- factor(c(1990, 1983, 1977, 1998, 1990))
 
 as.numeric(year_fct)                     # Wrong! And there is no warning...
@@ -452,7 +462,8 @@ as.numeric(year_fct)                     # Wrong! And there is no warning...
 as.numeric(as.character(year_fct))       # Works...
 
 as.numeric(levels(year_fct))[year_fct]   # The recommended way.
-```
+~~~
+{: .language-r}
 
 Notice that in the recommended `levels()` approach, three important steps occur:
 
@@ -469,7 +480,7 @@ Let's extract the `memb_assoc` column from our data frame, convert it into a
 factor, and use it to look at the number of interview respondents who were or
 were not members of an irrigation association:
 
-```{r factor-plot-default-order, fig.alt = "Yes/no bar graph showing number of individuals who are members of irrigation association", purl = TRUE}
+~~~
 ## create a vector from the data frame column "memb_assoc"
 memb_assoc <- interviews$memb_assoc
 
@@ -482,7 +493,10 @@ memb_assoc
 ## bar plot of the number of interview respondents who were
 ## members of irrigation association:
 plot(memb_assoc)
-```
+~~~
+{: .language-r}
+
+Yes/no bar graph showing number of individuals who are members of irrigation association
 
 Looking at the plot compared to the output of the vector, we can see that in
 addition to "no"s and "yes"s, there are some respondents for which the
@@ -490,8 +504,7 @@ information about whether they were part of an irrigation association hasn't
 been recorded, and encoded as missing data. They do not appear on the plot.
 Let's encode them differently so they can counted and visualized in our plot.
 
-
-```{r factor-plot-reorder, purl = TRUE}
+~~~
 ## Let's recreate the vector from the data frame column "memb_assoc"
 memb_assoc <- interviews$memb_assoc
 
@@ -507,7 +520,8 @@ memb_assoc
 ## bar plot of the number of interview respondents who were
 ## members of irrigation association:
 plot(memb_assoc)
-```
+~~~
+{: .language-r}
 
 
 > ## Exercise
@@ -541,18 +555,21 @@ column `interview_date` which contains information about the
 year, month, and day that the interview was conducted. Let's
 convert those dates into three separate columns.
 
-```{r, eval = FALSE, purl = FALSE}
+~~~
 str(interviews)
-```
+~~~
+{: .language-r}
+
 We are going to use the package **`lubridate`**, which is included in the
 **`tidyverse`** installation but not loaded by default, so we have to load
 it explicitly with `library(lubridate)`.
 
 Start by loading the required package:
 
-```{r load-package, message = FALSE, purl = FALSE}
+~~~
 library(lubridate)
-```
+~~~
+{: .language-r}
 
 The lubridate function `ymd()` takes a vector representing year, month, and day,
 and converts it to a `Date` vector. `Date` is a class of data recognized by R as
@@ -562,10 +579,11 @@ as "YYYY-MM-DD".
 
 Let's extract our `interview_date` column and inspect the structure:
 
-```{r, purl = FALSE}
+~~~
 dates <- interviews$interview_date
 str(dates)
-```
+~~~
+{: .language-r}
 
 When we imported the data in R, `read_csv()` recognized that this column
 contained date information. We can now use the `day()`, `month()` and  `year()`
@@ -573,12 +591,13 @@ functions to extract this information from the date, and create new columns in
 our data frame to store it:
 
 
-```{r, purl = FALSE}
+~~~
 interviews$day <- day(dates)
 interviews$month <- month(dates)
 interviews$year <- year(dates)
 interviews
-```
+~~~
+{: .language-r}
 
 Notice the three new columns at the end of our data frame.
 
@@ -589,16 +608,17 @@ them to the appropriate `Date/POSIXct`format.
 
 Let's say we have a vector of dates in character format:
 
-```{r, purl = FALSE}
+~~~
 char_dates <- c("7/31/2012", "8/9/2014", "4/30/2016")
 str(char_dates)
-```
+~~~
+{: .language-r}
 
 We can convert this vector to dates as :
-
-```{r, purl = FALSE}
+~~~
 as_date(char_dates, format = "%m/%d/%Y")
-```
+~~~
+{: .language-r}
 
 Argument `format` tells the function the order to parse the characters and
 identify the month, day and year. The format above is the equivalent of
@@ -606,9 +626,10 @@ mm/dd/yyyy. A wrong format can lead to parsing errors or incorrect results.
 
 For example, observe what happens when we use a lower case y instead of upper
 case Y for the year.
-```{r, purl = FALSE}
+~~~
 as_date(char_dates, format = "%m/%d/%y")
-```
+~~~
+{: .language-r}
 
 Here, the `%y` part of the format stands for a two-digit year instead of a
 four-digit year, and this leads to parsing errors.
@@ -616,9 +637,10 @@ four-digit year, and this leads to parsing errors.
 Or in the following example, observe what happens when the month and day
 elements of the format are switched.
 
-```{r, purl = FALSE}
+~~~
 as_date(char_dates, format = "%d/%m/%y")
-```
+~~~
+{: .language-r}
 
 Since there is no month numbered 30 or 31, the first and third dates cannot be
 parsed.
@@ -626,8 +648,9 @@ parsed.
 We can also use functions `ymd()`, `mdy()` or `dmy()` to convert character
 variables to date.
 
-```{r, purl = FALSE}
+~~~
 mdy(char_dates)
-```
+~~~
+{: .language-r}
 
 {% include links.md %}

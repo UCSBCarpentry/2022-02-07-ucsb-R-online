@@ -22,12 +22,13 @@ questions:
 - How can I integrate my R code with text and plots?
 - How can I convert .Rmd files to .html?
 ---
-
+<!--
 ```{r setup, include = FALSE}
 source("../bin/chunk-options.R")
 knitr_fig_path("06-")
 source("../bin/download_data.R")
 ```
+-->
 
 ## R Markdown
 
@@ -44,14 +45,9 @@ making any changes in the actual document.
 The **rmarkdown** package comes pre-installed with RStudio, so no action is
 necessary.
 
-<figure>
-```{r rmarkdown-wizards, echo = FALSE, fig.show = "hold", fig.alt = "R Markdown wizard monsters creating a R Markdown document from a recipe. Art by Allison Horst", out.width="100%"}
-knitr::include_graphics("../fig/rmarkdown_wizards.png")
-```
-<figcaption>
+
+![R Markdown wizard monsters creating a R Markdown document from a recipe. Art by Allison Horst](../fig/rmarkdown_wizards.png)
 Image credit: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst</a>
-</figcaption>
-</figure>
 
 
 ## Creating an R Markdown file

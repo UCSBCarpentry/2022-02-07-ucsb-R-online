@@ -27,12 +27,13 @@ output:
     keep_md: true
 ---
 
-
+<!--
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
 knitr_fig_path("02-")
 source("../bin/download_data.R")
 ```
+-->
 
 ## What are data frames and tibbles?
 

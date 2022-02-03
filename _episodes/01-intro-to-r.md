@@ -40,18 +40,20 @@ source("../bin/download_data.R")
 
 You can get output from R simply by typing math in the console:
 
-```{r, purl=FALSE}
+~~~
 3 + 5
 12 / 7
-```
+~~~
+{: .language-r}
 
 However, to do useful and interesting things, we need to assign _values_ to
 _objects_. To create an object, we need to give it a name followed by the
 assignment operator `<-`, and the value we want to give it:
 
-```{r, purl=FALSE}
+~~~
 area_hectares <- 1.0
-```
+~~~
+{: .language-r}
 
 `<-` is the assignment operator. It assigns values on the right to objects on
 the left. So, after executing `x <- 3`, the value of `x` is `3`. The arrow can
@@ -106,39 +108,44 @@ When assigning a value to an object, R does not print anything. You
 can force R to print the value by using parentheses or by typing
 the object name:
 
-```{r, purl=FALSE}
+~~~
 area_hectares <- 1.0    # doesn't print anything
 (area_hectares <- 1.0)  # putting parenthesis around the call prints the value of `area_hectares`
 area_hectares         # and so does typing the name of the object
-```
+~~~
+{: .language-r}
 
 Now that R has `area_hectares` in memory, we can do arithmetic with it. For
 instance, we may want to convert this area into acres (area in acres is 2.47 times the area in hectares):
 
-```{r, purl=FALSE}
+~~~
 2.47 * area_hectares
-```
+~~~
+{: .language-r}
 
 We can also change an object's value by assigning it a new one:
 
-```{r, purl=FALSE}
+~~~
 area_hectares <- 2.5
 2.47 * area_hectares
-```
+~~~
+{: .language-r}
 
 This means that assigning a value to one object does not change the values of
 other objects. For example, let's store the plot's area in acres
 in a new object, `area_acres`:
 
-```{r, purl=FALSE}
+~~~
 area_acres <- 2.47 * area_hectares
-```
+~~~
+{: .language-r}
 
 and then change `area_hectares` to 50.
 
-```{r, purl=FALSE}
+~~~
 area_hectares <- 50
-```
+~~~
+{: .language-r}
 
 > ## Exercise
 >
@@ -159,11 +166,12 @@ All programming languages allow the programmer to include comments in their code
 Anything to the right of the `#` sign and up to the end of the line is treated as a comment and is ignored by R. You can start lines with comments
 or include them after any code on the line.
 
-```{r}
+~~~
 area_hectares <- 1.0			# land area in hectares
 area_acres <- area_hectares * 2.47	# convert to acres
 area_acres				# print land area in acres.
-```
+~~~
+{: .language-r}
 
 RStudio makes it easy to comment or uncomment a paragraph: after selecting the
 lines you  want to comment, press at the same time on your keyboard
@@ -213,9 +221,11 @@ input (the argument) must be a number, and the return value (in fact, the
 output) is the square root of that number. Executing a function ('running it')
 is called *calling* the function. An example of a function call is:
 
-```{r, eval=FALSE, purl=FALSE}
+~~~
 b <- sqrt(a)
-```
+~~~
+{: .language-r}
+
 Here, the value of `a` is given to the `sqrt()` function, the `sqrt()` function
 calculates the square root, and returns the value which is then assigned to
 the object `b`. This function is very simple, because it takes just one argument.
@@ -235,9 +245,10 @@ of your choice which will be used instead of the default.
 
 Let's try a function that can take multiple arguments: `round()`.
 
-```{r, results='show', purl=FALSE}
+~~~
 round(3.14159)
-```
+~~~
+{: .language-r}
 
 
 Here, we've called `round()` with just one argument, `3.14159`, and it has
@@ -246,33 +257,38 @@ whole number. If we want more digits we can see how to do that by getting
 information about the `round` function.  We can use `args(round)` or look at the
 help for this function using `?round`.
 
-```{r, results='show', purl=FALSE}
+~~~
 args(round)
-```
+~~~
+{: .language-r}
 
-```{r, eval=FALSE, purl=FALSE}
+~~~
 ?round
-```
+~~~
+{: .language-r}
 
 We see that if we want a different number of digits, we can
 type `digits=2` or however many we want.
 
-```{r, results='show', purl=FALSE}
+~~~
 round(3.14159, digits = 2)
-```
+~~~
+{: .language-r}
 
 If you provide the arguments in the exact same order as they are defined you
 don't have to name them:
 
-```{r, results='show', purl=FALSE}
+~~~
 round(3.14159, 2)
-```
+~~~
+{: .language-r}
 
 And if you do name the arguments, you can switch their order:
 
-```{r, results='show', purl=FALSE}
+~~~
 round(digits = 2, x = 3.14159)
-```
+~~~
+{: .language-r}
 
 It's good practice to put the non-optional arguments (like the number you're
 rounding) first in your function call, and to specify the names of all optional
@@ -289,10 +305,6 @@ doing.
 
 ## Vectors and data types
 
-```{r, echo=FALSE, purl=TRUE}
-### Vectors and data types
-```
-
 A vector is the most common and basic data type in R, and is pretty much
 the workhorse of R. A vector is composed by a series of values, which can be
 either numbers or characters. We can assign a series of values to a vector using
@@ -300,10 +312,11 @@ the `c()` function. For example we can create a vector of the number of househol
 members for the households we've interviewed and assign
 it to a new object `hh_members`:
 
-```{r, purl=FALSE}
+~~~
 hh_members <- c(3, 7, 10, 6)
 hh_members
-```
+~~~
+{: .language-r}
 
 A vector can also contain characters. For example, we can have
 a vector of the building material used to construct our
@@ -321,35 +334,39 @@ don't exist in R's memory, there will be an error message.
 There are many functions that allow you to inspect the content of a
 vector. `length()` tells you how many elements are in a particular vector:
 
-```{r, purl=FALSE}
+~~~
 length(hh_members)
 length(respondent_wall_type)
-```
+~~~
+{: .language-r}
 
 An important feature of a vector, is that all of the elements are the same type of data.
 The function `class()` indicates the class (the type of element) of an object:
 
-```{r, purl=FALSE}
+~~~
 class(hh_members)
 class(respondent_wall_type)
-```
+~~~
+{: .language-r}
 
 The function `str()` provides an overview of the structure of an object and its
 elements. It is a useful function when working with large and complex
 objects:
 
-```{r, purl=FALSE}
+~~~
 str(hh_members)
 str(respondent_wall_type)
-```
+~~~
+{: .language-r}
 
 You can use the `c()` function to add other elements to your vector:
-```{r, purl=FALSE}
+~~~
 possessions <- c("bicycle", "radio", "television")
 possessions <- c(possessions, "mobile_phone") # add to the end of the vector
 possessions <- c("car", possessions) # add to the beginning of the vector
 possessions
-```
+~~~
+{: .language-r}
 
 In the first line, we take the original vector `possessions`,
 add the value `"mobile_phone"` to the end of it, and save the result back into
@@ -445,19 +462,21 @@ factors (`factor`) and arrays (`array`).
 If we want to extract one or several values from a vector, we must provide one
 or several indices in square brackets. For instance:
 
-```{r, results='show', purl=FALSE}
+~~~
 respondent_wall_type <- c("muddaub", "burntbricks", "sunbricks")
 respondent_wall_type[2]
 respondent_wall_type[c(3, 2)]
-```
+~~~
+{: .language-r}
 
 We can also repeat the indices to create an object with more elements than the
 original one:
 
-```{r, results='show', purl=FALSE}
+~~~
 more_respondent_wall_type <- respondent_wall_type[c(1, 2, 3, 2, 1, 3)]
 more_respondent_wall_type
-```
+~~~
+{: .language-r}
 
 R indices start at 1. Programming languages like Fortran, MATLAB, Julia, and R
 start counting at 1, because that's what human beings typically do. Languages in
@@ -469,28 +488,31 @@ simpler for computers to do.
 Another common way of subsetting is by using a logical vector. `TRUE` will
 select the element with the same index, while `FALSE` will not:
 
-```{r, results='show', purl=FALSE}
+~~~
 hh_members <- c(3, 7, 10, 6)
 hh_members[c(TRUE, FALSE, TRUE, TRUE)]
-```
+~~~
+{: .language-r}
 
 Typically, these logical vectors are not typed by hand, but are the output of
 other functions or logical tests. For instance, if you wanted to select only the
 values above 5:
 
-```{r, results='show', purl=FALSE}
+~~~
 hh_members > 5    # will return logicals with TRUE for the indices that meet the condition
 ## so we can use this to select only the values above 5
 hh_members[hh_members > 5]
-```
+~~~
+{: .language-r}
 
 You can combine multiple tests using `&` (both conditions are true, AND) or `|`
 (at least one of the conditions is true, OR):
 
-```{r, results='show', purl=FALSE}
+~~~
 hh_members[hh_members < 4 | hh_members > 7]
 hh_members[hh_members >= 4 & hh_members <= 7]
-```
+~~~
+{: .language-r}
 
 Here, `<` stands for "less than", `>` for "greater than", `>=` for "greater than
 or equal to", and `==` for "equal to". The double equal sign `==` is a test for
@@ -502,27 +524,30 @@ A common task is to search for certain strings in a vector.  One could use the
 "or" operator `|` to test for equality to multiple values, but this can quickly
 become tedious.
 
-```{r, results='show', purl=FALSE}
+~~~
 possessions <- c("car", "bicycle", "radio", "television", "mobile_phone")
 possessions[possessions == "car" | possessions == "bicycle"] # returns both car and bicycle
-```
+~~~
+{: .language-r}
 
 The function `%in%` allows you to test if any of the elements of a search vector
 (on the left hand side) are found in the target vector (on the right hand side):
 
-```{r, results='show', purl=FALSE}
+~~~
 possessions %in% c("car", "bicycle")
-```
+~~~
+{: .language-r}
 
 Note that the output is the same length as the search vector on the left hand
 side, because `%in%` checks whether each element of the search vector is found
 somewhere in the target vector. Thus, you can use `%in%` to select the elements
 in the search vector that appear in your target vector:
 
-```{r, results='show', purl=FALSE}
+~~~
 possessions %in% c("car", "bicycle", "motorcycle", "truck", "boat", "bus")
 possessions[possessions %in% c("car", "bicycle", "motorcycle", "truck", "boat", "bus")]
-```
+~~~
+{: .language-r}
 
 
 ## Missing data
@@ -537,20 +562,21 @@ makes it harder to overlook the cases where you are dealing with missing data.
 You can add the argument `na.rm=TRUE` to calculate the result while ignoring
 the missing values.
 
-```{r, purl=FALSE}
+~~~
 rooms <- c(2, 1, 1, NA, 7)
 mean(rooms)
 max(rooms)
 mean(rooms, na.rm = TRUE)
 max(rooms, na.rm = TRUE)
-```
+~~~
+{: .language-r}
 
 If your data include missing values, you may want to become familiar with the
 functions `is.na()`, `na.omit()`, and `complete.cases()`. See below for
 examples.
 
 
-```{r, purl=FALSE}
+~~~
 ## Extract those elements which are not missing values.
 ## The ! character is also called the NOT operator
 rooms[!is.na(rooms)]
@@ -564,7 +590,9 @@ na.omit(rooms)
 
 ## Extract those elements which are complete cases. The returned object is an atomic vector of type `"numeric"` (or `"double"`).
 rooms[complete.cases(rooms)]
-```
+~~~
+{: .language-r}
+
 Recall that you can use the `typeof()` function to find the type of your atomic vector.
 
 > ## Exercise

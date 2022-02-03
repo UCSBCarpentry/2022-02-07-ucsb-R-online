@@ -39,12 +39,13 @@ output:
     keep_md: true
 ---
 
-
+<!--
 ```{r, include = FALSE}
 source("../bin/chunk-options.R")
 knitr_fig_path("03-")
 source("../bin/download_data.R")
 ```
+-->
 
 **`dplyr`** is a package for making tabular data wrangling easier by using a
 limited set of functions that can be combined to extract and summarize insights

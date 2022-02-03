@@ -99,7 +99,9 @@ and this [one about **`tidyr`**](https://raw.githubusercontent.com/rstudio/cheat
 To make sure everyone will use the same dataset for this lesson, we'll read
 again the SAFI dataset that we downloaded earlier.
 
+<!--
 ```{r, results = 'hide', purl = FALSE, message = FALSE}
+-->
 
 ## load the tidyverse
 library(tidyverse)
@@ -133,7 +135,9 @@ read as "select columns from ___ to ___." You may have done something similar in
 the past using subsetting. `select()` is essentially doing the same thing as
 subsetting, using a package (`dplyr`) instead of R's base functions.
 
+<!--
 ```{r, results = 'hide', purl = FALSE}
+-->
 # to select columns throughout the dataframe
 select(interviews, village, no_membrs, months_lack_food)
 # to do the same thing with subsetting
@@ -158,33 +162,27 @@ in the resulting dataframe. To form "and" statements within dplyr, we can  pass
 our desired conditions as arguments in the `filter()` function, separated by
 commas:
 
-```{r, purl=FALSE}
 
 # filters observations with "and" operator (comma)
 # output dataframe satisfies ALL specified conditions
 filter(interviews, village == "Chirodzo",
                    rooms > 1,
                    no_meals > 2)
-```
 
 We can also form "and" statements with the `&` operator instead of commas:
 
-```{r, purl=FALSE}
 # filters observations with "&" logical operator
 # output dataframe satisfies ALL specified conditions
 filter(interviews, village == "Chirodzo" &
                    rooms > 1 &
                    no_meals > 2)
-```
 
 In an "or" statement, observations must meet *at least one* of the specified conditions.
 To form "or" statements we use the logical operator for "or," which is the vertical bar (|):
 
-```{r, purl=FALSE}
 # filters observations with "|" logical operator
 # output dataframe satisfies AT LEAST ONE of the specified conditions
 filter(interviews, village == "Chirodzo" | village == "Ruaca")
-```
 
 
 ## Pipes
@@ -195,10 +193,8 @@ ways to do this: use intermediate steps, nested functions, or pipes.
 With intermediate steps, you create a temporary dataframe and use
 that as input to the next function, like this:
 
-```{r, purl = FALSE}
 interviews2 <- filter(interviews, village == "Chirodzo")
 interviews_ch <- select(interviews2, village:respondent_wall_type)
-```
 
 This is readable, but can clutter up your workspace with lots of objects that
 you have to name individually. With multiple steps, that can be hard to keep
@@ -206,10 +202,8 @@ track of.
 
 You can also nest functions (i.e. one function inside of another), like this:
 
-```{r, purl = FALSE}
 interviews_ch <- select(filter(interviews, village == "Chirodzo"),
                          village:respondent_wall_type)
-```
 
 This is handy, but can be difficult to read if too many functions are nested, as
 R evaluates the expression from the inside out (in this case, filtering, then
@@ -223,11 +217,9 @@ are made available via the **`magrittr`** package, installed automatically with
 - <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> if you have a PC or <kbd>Cmd</kbd> +
 <kbd>Shift</kbd> + <kbd>M</kbd> if you have a Mac.
 
-```{r, purl = FALSE}
 interviews %>%
     filter(village == "Chirodzo") %>%
     select(village:respondent_wall_type)
-```
 
 In the above code, we use the pipe to send the `interviews` dataset first
 through `filter()` to keep rows where `village` is "Chirodzo", then through
@@ -246,14 +238,11 @@ more complex data wrangling operations.
 If we want to create a new object with this smaller version of the data, we
 can assign it a new name:
 
-```{r, purl = FALSE}
 interviews_ch <- interviews %>%
     filter(village == "Chirodzo") %>%
     select(village:respondent_wall_type)
 
 interviews_ch
-
-```
 
 Note that the final dataframe (`interviews_ch`) is the leftmost part of this
 expression.
@@ -284,10 +273,8 @@ two columns. For this we'll use `mutate()`.
 We might be interested in the ratio of number of household members
 to rooms used for sleeping (i.e. avg number of people per room):
 
-```{r, purl = FALSE}
 interviews %>%
     mutate(people_per_room = no_membrs / rooms)
-```
 
 We may be interested in investigating whether being a member of an
 irrigation association had any effect on the ratio of household members
@@ -298,11 +285,9 @@ These cases are recorded as "NULL" in the dataset.
 
 To remove these cases, we could insert a `filter()` in the chain:
 
-```{r, purl = FALSE}
 interviews %>%
     filter(!is.na(memb_assoc)) %>%
     mutate(people_per_room = no_membrs / rooms)
-```
 
 The `!` symbol negates the result of the `is.na()` function. Thus, if `is.na()`
 returns a value of `TRUE` (because the `memb_assoc` is missing), the `!` symbol
@@ -348,83 +333,69 @@ the column names that contain the **categorical** variables for which you want
 to calculate the summary statistics. So to compute the average household size by
 village:
 
-```{r, purl = FALSE}
 interviews %>%
     group_by(village) %>%
     summarize(mean_no_membrs = mean(no_membrs))
-```
 
 You may also have noticed that the output from these calls doesn't run off the
 screen anymore. It's one of the advantages of `tbl_df` over dataframe.
 
 You can also group by multiple columns:
 
-```{r, purl = FALSE}
 interviews %>%
     group_by(village, memb_assoc) %>%
     summarize(mean_no_membrs = mean(no_membrs))
-```
 
 Note that the output is a grouped tibble. To obtain an ungrouped tibble, use the
 `ungroup` function:
 
-```{r, purl = FALSE}
 interviews %>%
     group_by(village, memb_assoc) %>%
     summarize(mean_no_membrs = mean(no_membrs)) %>%
     ungroup()
-```
 
 When grouping both by `village` and `membr_assoc`, we see rows in our table for
 respondents who did not specify whether they were a member of an irrigation
 association. We can exclude those data from our table using a filter step.
 
 
-```{r, purl = FALSE}
 interviews %>%
     filter(!is.na(memb_assoc)) %>%
     group_by(village, memb_assoc) %>%
     summarize(mean_no_membrs = mean(no_membrs))
-```
 
 Once the data are grouped, you can also summarize multiple variables at the same
 time (and not necessarily on the same variable). For instance, we could add a
 column indicating the minimum household size for each village for each group
 (members of an irrigation association vs not):
 
-```{r, purl = FALSE}
 interviews %>%
     filter(!is.na(memb_assoc)) %>%
     group_by(village, memb_assoc) %>%
     summarize(mean_no_membrs = mean(no_membrs),
               min_membrs = min(no_membrs))
-```
 
 It is sometimes useful to rearrange the result of a query to inspect the values.
 For instance, we can sort on `min_membrs` to put the group with the smallest
 household first:
 
 
-```{r, purl = FALSE}
 interviews %>%
     filter(!is.na(memb_assoc)) %>%
     group_by(village, memb_assoc) %>%
     summarize(mean_no_membrs = mean(no_membrs),
               min_membrs = min(no_membrs)) %>%
     arrange(min_membrs)
-```
 
 To sort in descending order, we need to add the `desc()` function. If we want to
 sort the results by decreasing order of minimum household size:
 
-```{r, purl = FALSE}
 interviews %>%
     filter(!is.na(memb_assoc)) %>%
     group_by(village, memb_assoc) %>%
     summarize(mean_no_membrs = mean(no_membrs),
               min_membrs = min(no_membrs)) %>%
     arrange(desc(min_membrs))
-```
 
 #### Counting
 
@@ -433,18 +404,14 @@ for each factor or combination of factors. For this task, **`dplyr`** provides
 `count()`. For example, if we wanted to count the number of rows of data for
 each village, we would do:
 
-```{r, purl = FALSE}
 interviews %>%
     count(village)
-```
 
 For convenience, `count()` provides the `sort` argument to get results in
 decreasing order:
 
-```{r, purl = FALSE}
 interviews %>%
     count(village, sort = TRUE)
-```
 
 > ## Exercise
 >
@@ -521,21 +488,17 @@ dataset with the same `key_ID` (as seen below). However, the `instanceID`s
 associated with these duplicate `key_ID`s are not the same. Thus, we should
 think of `instanceID` as the unique identifier for observations!
 
-```{r, purl = FALSE}
 interviews %>%
   select(key_ID, village, interview_date, instanceID)
-```
 
 As seen in the code below, for each interview date in each village no
 `instanceID`s are the same. Thus, this format is what is called a "long" data
 format, where each observation occupies only one row in the dataframe.
 
-```{r, purl = FALSE}
 interviews %>%
   filter(village == "Chirodzo") %>%
   select(key_ID, village, interview_date, instanceID) %>%
   sample_n(size = 10)
-```
 
 We notice that the layout or format of the `interviews` data is in a format that
 adheres to rules 1-3, where
@@ -633,13 +596,11 @@ we can insert a default value into the `values_fill` argument. By including
 fill the remainder of the wall type columns for that row with the value `FALSE`.
 
 
-```{r, purl = FALSE}
 interviews_wide <- interviews %>%
     mutate(wall_type_logical = TRUE) %>%
     pivot_wider(names_from = respondent_wall_type,
                 values_from = wall_type_logical,
                 values_fill = list(wall_type_logical = FALSE))
-```
 
 
 View the `interviews_wide` dataframe and notice that there is no longer a
@@ -685,12 +646,10 @@ To recreate our original dataframe, we will use the following:
    `TRUE` or `FALSE`.
 
 
-```{r, purl = FALSE}
 interviews_long <- interviews_wide %>%
     pivot_longer(cols = burntbricks:sunbricks,
                  names_to = "respondent_wall_type",
                  values_to = "wall_type_logical")
-```
 
 
 ![](../fig/pivot_wide_to_long.png)
@@ -710,14 +669,12 @@ it will automatically already only keep rows where this column has the value
 
 We do all of these steps together in the next chunk of code:
 
-```{r, purl = FALSE}
 interviews_long <- interviews_wide %>%
     pivot_longer(cols = c(burntbricks, cement, muddaub, sunbricks),
                  names_to = "respondent_wall_type",
                  values_to = "wall_type_logical") %>%
     filter(wall_type_logical) %>%
     select(-wall_type_logical)
-```
 
 View both `interviews_long` and `interviews_wide` and compare their structure.
 
@@ -735,7 +692,6 @@ item. Each cell in that column will either be `TRUE` or `FALSE` and will
 indicate whether that interview respondent owned that item (similar to what
 we did previously with `wall_type`).
 
-```{r, purl = FALSE}
 interviews_items_owned <- interviews %>%
   separate_rows(items_owned, sep = ";") %>%
   replace_na(list(items_owned = "no_listed_items")) %>%
@@ -745,15 +701,12 @@ interviews_items_owned <- interviews %>%
                 values_fill = list(items_owned_logical = FALSE))
 
 nrow(interviews_items_owned)
-```
 
 There are a couple of new concepts in this code chunk, so let's walk through it
 line by line. First we create a new object (`interviews_items_owned`) based on
 the `interviews` dataframe.
 
-```{r, eval = FALSE}
 interviews_items_owned <- interviews %>%
-```
 
 Then we use the new function `separate_rows()` from the **`tidyr`** package to
 separate the values of `items_owned` based on the presence of semi-colons (`;`).
@@ -764,9 +717,7 @@ for each respondent. For example, if a respondent has a television and a solar
 panel, that respondent will now have two rows, one with "television" and the
 other with "solar panel" in the `items_owned` column.
 
-```{r, eval = FALSE}
 separate_rows(items_owned, sep = ";") %>%
-```
 
 You may notice that one of the columns is called `´NA´`. This is because some
 of the respondents did not own any of the items that was in the interviewer's
@@ -776,9 +727,7 @@ it a `list()` of columns that you would like to replace the `NA` values in,
 and the value that you would like to replace the `NA`s. This ends up looking
 like this:
 
-```{r, eval = FALSE}
 replace_na(list(items_owned = "no_listed_items")) %>%
-```
 
 Next, we create a new variable named `items_owned_logical`, which has one value
 (`TRUE`) for every row. This makes sense, since each item in every row was owned
@@ -787,9 +736,7 @@ by that household. We are constructing this variable so that when spread the
 with logical values describing whether the household did (`TRUE`) or didn't
 (`FALSE`) own that particular item.  
 
-```{r, eval = FALSE}
 mutate(items_owned_logical = TRUE) %>%
-```
 
 Lastly, we use `pivot_wider()` to switch from long format to wide format. This
 creates a new column for each of the unique values in the `items_owned` column,
@@ -797,12 +744,10 @@ and fills those columns with the values of `items_owned_logical`. We also
 declare that for items that are missing, we want to fill those cells with the
 value of `FALSE` instead of `NA`.
 
-```{r, eval = FALSE}
 pivot_wider(names_from = items_owned,
             values_from = items_owned_logical,
             values_fill = list(items_owned_logical = FALSE))
 
-```
 
 View the `interviews_items_owned` dataframe. It should have
 `r nrow(interviews)` rows (the same number of rows you had originally), but
@@ -811,12 +756,10 @@ extra columns for each item. How many columns were added?
 This format of the data allows us to do interesting things, like make a table
 showing the number of respondents in each village who owned a particular item:
 
-```{r, purl = FALSE}
 interviews_items_owned %>%
   filter(bicycle) %>%
   group_by(village) %>%
   count(bicycle)
-```
 
 Or below we calculate the average number of items from the list owned by
 respondents in each village. This code uses the `rowSums()` function to count
@@ -824,12 +767,10 @@ the number of `TRUE` values in the `bicycle` to `car` columns for each row,
 hence its name. We then group the data by villages and calculate the mean
 number of items, so each average is grouped by village.
 
-```{r, purl = FALSE}
 interviews_items_owned %>%
     mutate(number_items = rowSums(select(., bicycle:car))) %>%
     group_by(village) %>%
     summarize(mean_items = mean(number_items))
-```
 
 > ## Exercise
 >
@@ -887,7 +828,6 @@ this, we will use `pivot_wider` to expand the `months_lack_food` and
 `items_owned` columns. We will also create a couple of summary columns.
 
 
-```{r, purl = FALSE}
 interviews_plotting <- interviews %>%
   ## pivot wider by items_owned
   separate_rows(items_owned, sep = ";") %>%
@@ -906,17 +846,12 @@ interviews_plotting <- interviews %>%
   ## add some summary columns
   mutate(number_months_lack_food = rowSums(select(., Jan:May))) %>%
   mutate(number_items = rowSums(select(., bicycle:car)))
-```
 
 Now we can save this dataframe to our `data_output` directory.
 
-```{r, purl = FALSE, eval = FALSE}
 write_csv (interviews_plotting, file = "data_output/interviews_plotting.csv")
-```
 
-```{r, purl = FALSE, eval = TRUE, echo = FALSE}
 if (!dir.exists("data_output")) dir.create("data_output")
 write_csv(interviews_plotting, "data_output/interviews_plotting.csv")
-```
 
 {% include links.md %}

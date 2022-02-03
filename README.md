@@ -5,8 +5,9 @@
 This repository came from The Carpentries' ([Software Carpentry][swc-site], [Data Carpentry][dc-site], and
 [Library Carpentry][lc-site]'s) template for creating websites for workshops.
 
+## Feb. 2022 Workshops
 It's for an Intro to R data carpentry for UCSB SEEDS Fellows.
-The lesson episodes came from (Intro to R for Geospatial Data)[https://datacarpentry.org/r-intro-geospatial/]
+The lesson episodes came from [Intro to R for Social Scientists](https://datacarpentry.org/r-socialsci/)
 
 Don't forget that AMY form!
 - Once you are done, please also [let us know][email] the workshop URL. If this is a self-organised

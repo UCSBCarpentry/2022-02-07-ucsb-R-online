@@ -416,7 +416,11 @@ please preview your site before committing, and make sure to run
   
   Please refer to this <a href= "https://datacarpentry.org/r-socialsci/setup.html">setup page</a> for detailed install instructions.  
   
-At the end of the setup page, when you open the <a href= "https://datacarpentry.org/r-socialsci/data/SAFI.json">.json data download</a> link, right click and save onto your desktop or other acessible location. The data file should be named SAFI.json.
+<h3>Data</H3>
+We will use two different formate of a rural household survey.
+<ul>
+  <li><a href=" https://figshare.com/articles/SAFI_Survey_Results/6262019">SAFI Survey Results</a>, a commonly used example dataset.
+  <li><a href= "https://datacarpentry.org/r-socialsci/data/SAFI.json">Download .json data</a> link, right click and save onto your desktop or other acessible location. The data file should be named SAFI.json.</li>
 </p>
 
   <ul style="list-style-type:circle">

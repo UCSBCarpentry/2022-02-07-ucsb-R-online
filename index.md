@@ -416,12 +416,16 @@ please preview your site before committing, and make sure to run
   
   Please refer to this <a href= "https://datacarpentry.org/r-socialsci/setup.html">setup page</a> for detailed install instructions.  
   
-<h3>Data</H3>
-We will use two different formate of a rural household survey.
+<h3>Data</h3>
+We will use two different format of a <a href="https://figshare.com/articles/dataset/SAFI_Survey_Results/6262019">
+  rural household survey available from Fig Share.</a> Please download:
 <ul>
-  <li><a href=" https://figshare.com/articles/SAFI_Survey_Results/6262019">SAFI Survey Results</a>, a commonly used example dataset.
-  <li><a href= "https://datacarpentry.org/r-socialsci/data/SAFI.json">Download .json data</a> link, right click and save onto your desktop or other acessible location. The data file should be named SAFI.json.</li>
-</p>
+  <li><a href="https://figshare.com/ndownloader/files/11492171">pre-cleaned SAFI Survey Results</a>, a commonly used example dataset.
+  <li><a href= "https://datacarpentry.org/r-socialsci/data/SAFI.json">.json formated data</a> of the same survey.</li>
+</ul>
+
+Right click and save onto your desktop or other acessible location. The data file should be named SAFI.json.
+
 
   <ul style="list-style-type:circle">
     <li> <a href="https://www.rstudio.com/products/rstudio/download/">Rstudio version 1.4 or greater</a> </li>
